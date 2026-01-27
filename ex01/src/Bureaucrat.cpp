@@ -121,12 +121,12 @@ void Bureaucrat::setGrade(int grade)
 
 const char *Bureaucrat::GradeTooLowException::what(void) const throw()
 {
-	return ("Grade too low");
+	return ("Bureaucrat's grade too low");
 };
 
 const char *Bureaucrat::GradeTooHighException::what(void) const throw()
 {
-	return ("Grade too high");
+	return ("Bureaucrat's grade too high");
 };
 
 std::ostream	&operator<<(std::ostream &o, Bureaucrat *a)

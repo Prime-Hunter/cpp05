@@ -37,4 +37,6 @@ class Bureaucrat
     };
 };
 
+std::ostream	&operator<<(std::ostream &o, Form *a);
+
 #endif

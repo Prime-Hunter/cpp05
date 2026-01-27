@@ -81,3 +81,78 @@ Form::Form(const Form &copy): _name(copy.getName() + "_copy")
 	*this = copy;
 }
 
+const std::string Form::getName()const
+{
+    return (this->_name);
+}
+
+bool Form::isSigned()const
+{
+    return (this->_signed);
+}
+
+int Form::getSignGrade()const
+{
+    return (this->_signGrade);
+}
+
+int Form::getExecGrade()const
+{
+    return (this->_execGrade);
+}
+
+void Form::beSigned(Bureaucrat &signer)
+{
+    if (this->_signed == true)
+    {
+        std::cout << this->getName() << " form is already signed" << std::endl;
+    }
+    else
+    {
+        if (signer.getGrade() > this->getSignGrade())
+        {
+            throw(Bureaucrat::GradeTooLowException)
+        }
+        else
+        {
+            this->_signed = true;
+            std::cout << this->getName() << " form was signed by " << signer.getName() << std::endl;
+	    }
+    }
+}
+
+void Form::setSignGrade(int grade)
+{
+    if (grade < 1)
+        throw Bureaucrat::GradeTooLowException();
+    else if (grade > 150)
+        throw Bureaucrat::GradeTooHighException();
+    else
+        this->_signGrade = grade;
+}
+
+void Form::setExecGrade(int grade)
+{
+    if (grade < 1)
+        throw Bureaucrat::GradeTooLowException();
+    else if (grade > 150)
+        throw Bureaucrat::GradeTooHighException();
+    else
+        this->_execGrade = grade;
+}
+
+const char *Form::GradeTooLowException::what(void) const throw()
+{
+	return ("Form's grade too low");
+};
+
+const char *Form::GradeTooHighException::what(void) const throw()
+{
+	return ("Form's grade too high");
+};
+
+std::ostream	&operator<<(std::ostream &o, Form *a)
+{
+	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->getIsSigned() << std::endl;
+	return (o);
+}

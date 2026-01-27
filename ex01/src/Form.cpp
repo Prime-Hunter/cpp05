@@ -81,7 +81,7 @@ Form::Form(const Form &copy): _name(copy.getName() + "_copy")
 	*this = copy;
 }
 
-const std::string Form::getName()const
+std::string Form::getName()const
 {
     return (this->_name);
 }
@@ -96,7 +96,7 @@ int Form::getSignGrade()const
     return (this->_signGrade);
 }
 
-int Form::getExecGrade()const
+const int Form::getExecGrade()const
 {
     return (this->_execGrade);
 }

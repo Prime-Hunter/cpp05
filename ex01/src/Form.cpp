@@ -6,68 +6,43 @@ Form &Form::operator=(const Form &src)
 	if (this == &src)
 		return *this;
 
-	this->_signed = src.isSigned();
-    this->_signGrade = src.getSignGrade();
-    this->_execGrade = src.getExecGrade();
 	return *this;
 }
 
 Form::Form(): _name("standard"), _signed(false), _signGrade(150), _execGrade(150)
 {
-    std::cout << "The " this->getName() << " form has been created. Signing grade: ", this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
+    std::cout << "The " << this->getName() << " form has been created. Signing grade: " << this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
 }
 
 Form::Form(const std::string name): _name(name), _signed(false), _signGrade(150), _execGrade(150)
 {
-    std::cout << "The " this->getName() << " form has been created. Signing grade: ", this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
+    std::cout << "The " << this->getName() << " form has been created. Signing grade: " << this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
 }
 
-Form::Form(int signGrade, int execGrade): _name("standard"), _signed(false)
+Form::Form(int signGrade, int execGrade): _name("standard"), _signed(false), _signGrade(signGrade), _execGrade(execGrade)
 {
-    try
+    std::cout << "The " << this->getName() << " form has been created. Signing grade: " << this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
+    if (signGrade < 1 || execGrade < 1)
     {
-        this->setSignGrade(signGrade);
-        this->setExecGrade(execGrade);
-        std::cout << "The " this->getName() << " form has been created. Signing grade: ", this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
+        throw(Form::GradeTooHighException());
     }
-    catch(Form::GradeTooLowException &e)
+    else if (signGrade > 150 || execGrade > 150)
     {
-        std::cerr << "Instanstiation of " << this->getName() << " form failed: " << e.what() << std::endl;
-        std::cerr << "Setting both grades to default 150" << std::endl;
-        this->setSignGrade(150);
-        this->setExecGrade(150);
-    }
-    catch(Form::GradeTooHighException &e)
-    {
-        std::cerr << "Instanstiation of " << this->getName() << " form failed: " << e.what() << std::endl;
-        std::cerr << "Setting both grades to default 1" << std::endl;
-        this->setSignGrade(1);
-        this->setExecGrade(1);
+        throw(Form::GradeTooLowException());
     }
 }
 
-Form::Form(const std::string name, int signGrade, int execGrade): _name(name), _signed(false)
+Form::Form(const std::string name, int signGrade, int execGrade): _name(name), _signed(false), _signGrade(signGrade), _execGrade(execGrade)
 {
-    try
+    std::cout << "The " << this->getName() << " form has been created. Signing grade: " << this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
+    if (signGrade < 1 || execGrade < 1)
     {
-        this->setSignGrade(signGrade);
-        this->setExecGrade(execGrade);
-        std::cout << "The " this->getName() << " form has been created. Signing grade: ", this->getSignGrade() << ", executing grade: " << this->getExecGrade() << std::endl;
+        throw(Form::GradeTooHighException());
     }
-    catch(Form::GradeTooLowException &e)
+    else if (signGrade > 150 || execGrade > 150)
     {
-        std::cerr << "Instanstiation of " << this->getName() << " form failed: " << e.what() << std::endl;
-        std::cerr << "Setting both grades to default 150" << std::endl;
-        this->setSignGrade(150);
-        this->setExecGrade(150);
-    }
-    catch(Form::GradeTooHighException &e)
-    {
-        std::cerr << "Instanstiation of " << this->getName() << " form failed: " << e.what() << std::endl;
-        std::cerr << "Setting both grades to default 1" << std::endl;
-        this->setSignGrade(1);
-        this->setExecGrade(1);
-    }
+        throw(Form::GradeTooLowException());
+    }   
 }
 
 Form::~Form()
@@ -75,13 +50,13 @@ Form::~Form()
     std::cout << "Deconstructor for " << this->getName() << " form called" << std::endl;
 }
 
-Form::Form(const Form &copy): _name(copy.getName() + "_copy")
+Form::Form(const Form &copy): _name(copy.getName() + "_copy"), _signed(false), _signGrade(copy.getSignGrade()), _execGrade(copy.getExecGrade())
 {
 	std::cout << "Form Copy Constructor called to copy " << copy.getName() << " to " << this->getName() << std::endl;
 	*this = copy;
 }
 
-std::string Form::getName()const
+const std::string Form::getName()const
 {
     return (this->_name);
 }
@@ -96,7 +71,7 @@ int Form::getSignGrade()const
     return (this->_signGrade);
 }
 
-const int Form::getExecGrade()const
+int Form::getExecGrade()const
 {
     return (this->_execGrade);
 }
@@ -111,7 +86,7 @@ void Form::beSigned(Bureaucrat &signer)
     {
         if (signer.getGrade() > this->getSignGrade())
         {
-            throw(Bureaucrat::GradeTooLowException)
+            throw(Bureaucrat::GradeTooLowException());
         }
         else
         {
@@ -119,26 +94,6 @@ void Form::beSigned(Bureaucrat &signer)
             std::cout << this->getName() << " form was signed by " << signer.getName() << std::endl;
 	    }
     }
-}
-
-void Form::setSignGrade(int grade)
-{
-    if (grade < 1)
-        throw Bureaucrat::GradeTooLowException();
-    else if (grade > 150)
-        throw Bureaucrat::GradeTooHighException();
-    else
-        this->_signGrade = grade;
-}
-
-void Form::setExecGrade(int grade)
-{
-    if (grade < 1)
-        throw Bureaucrat::GradeTooLowException();
-    else if (grade > 150)
-        throw Bureaucrat::GradeTooHighException();
-    else
-        this->_execGrade = grade;
 }
 
 const char *Form::GradeTooLowException::what(void) const throw()
@@ -153,6 +108,6 @@ const char *Form::GradeTooHighException::what(void) const throw()
 
 std::ostream	&operator<<(std::ostream &o, Form *a)
 {
-	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->getIsSigned() << std::endl;
+	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
 	return (o);
 }

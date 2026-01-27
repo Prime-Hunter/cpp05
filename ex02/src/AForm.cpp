@@ -106,6 +106,11 @@ const char *Form::GradeTooHighException::what(void) const throw()
 	return ("Form's grade too high");
 };
 
+const char *Form::FormNotSignedException::what(void) const throw()
+{
+	return ("Form's signature is required before executing");
+};
+
 std::ostream	&operator<<(std::ostream &o, Form *a)
 {
 	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;

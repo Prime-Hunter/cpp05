@@ -119,6 +119,18 @@ void Bureaucrat::setGrade(int grade)
         this->_grade = grade;
 }
 
+void Form::signForm(Form &form)
+{
+    try
+    {
+	    form.beSigned(*this);
+    }
+    catch(Form::GradeTooLowException &e)
+    {
+        std::cerr << this->getName << " couldn't sign " << form;getName() << " form: " e.what() << std::endl;
+    }
+}
+
 const char *Bureaucrat::GradeTooLowException::what(void) const throw()
 {
 	return ("Bureaucrat's grade too low");

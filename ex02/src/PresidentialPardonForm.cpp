@@ -39,11 +39,17 @@ std::string PresidentialPardonForm::getTarget()const
 void PresidentialPardonForm::execute(Bureaucrat const &executor)const
 {
     if (this->getExecGrade() < executor.getGrade())
+    {
 		throw (Bureaucrat::GradeTooLowException());
+    }
 	else if (this->isSigned() == false)
+    {
 		throw (Form::FormNotSignedException());
+    }
     else
+    {
 	    std::cout << this->getTarget() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
+    }
 }
 
 std::ostream	&operator<<(std::ostream &o, PresidentialPardonForm *a)

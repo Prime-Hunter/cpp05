@@ -1,16 +1,16 @@
 #include "../includes/ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(): Form("ShrubberyCreationForm", 145, 137), _target("default")
+ShrubberyCreationForm::ShrubberyCreationForm(): AForm("ShrubberyCreationForm", 145, 137), _target("default")
 {
     std::cout << "ShrubberyCreationForm default constructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): Form("ShrubberyCreationForm", 145, 137), _target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {
     std::cout << "ShrubberyCreationForm target constructor called. Target: " << target << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &copy): Form("ShrubberyCreationForm", 145, 137), _target(copy.getTarget())
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &copy): AForm("ShrubberyCreationForm", 145, 137), _target(copy.getTarget())
 {
 	std::cout << "ShrubberyCreationForm copy constructor called to copy " << copy.getName() << " to " << this->getName() << std::endl;
 
@@ -44,7 +44,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor)const
     }
 	else if (this->isSigned() == false)
     {
-		throw (Form::FormNotSignedException());
+		throw (AForm::FormNotSignedException());
     }
 	else
 	{
@@ -80,6 +80,6 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor)const
 
 std::ostream	&operator<<(std::ostream &o, ShrubberyCreationForm *a)
 {
-	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
+	o << "AForm " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
     return (o);
 }

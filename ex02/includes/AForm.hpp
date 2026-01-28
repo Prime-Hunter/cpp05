@@ -16,13 +16,13 @@ class AForm
         const int _execGrade;
 
     public:
-        Form();
-		Form(const std::string name);
-        Form(int signGrade, int execGrade);
-		Form(const std::string name, int signGrade, int execGrade);
-        virtual ~Form();
-        Form(const Form &copy);
-        Form &operator =(const Form &src);
+        AForm();
+		AForm(const std::string name);
+        AForm(int signGrade, int execGrade);
+		AForm(const std::string name, int signGrade, int execGrade);
+        virtual ~AForm();
+        AForm(const AForm &copy);
+        AForm &operator =(const AForm &src);
 
         const std::string getName()const;
         bool isSigned()const;
@@ -51,6 +51,6 @@ class AForm
 	};
 };
 
-std::ostream	&operator<<(std::ostream &o, Form *a);
+std::ostream	&operator<<(std::ostream &o, AForm *a);
 
 #endif

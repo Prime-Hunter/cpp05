@@ -2,17 +2,17 @@
 
 static int fails = 0;
 
-RobotomyRequestForm::RobotomyRequestForm(): Form("RobotomyRequestForm", 145, 137), _target("default")
+RobotomyRequestForm::RobotomyRequestForm(): AForm("RobotomyRequestForm", 145, 137), _target("default")
 {
     std::cout << "RobotomyRequestForm default constructor called" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target): Form("RobotomyRequestForm", 145, 137), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("RobotomyRequestForm", 145, 137), _target(target)
 {
     std::cout << "RobotomyRequestForm target constructor called. Target: " << target << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &copy): Form("RobotomyRequestForm", 145, 137), _target(copy.getTarget())
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &copy): AForm("RobotomyRequestForm", 145, 137), _target(copy.getTarget())
 {
 	std::cout << "RobotomyRequestForm copy constructor called to copy " << copy.getName() << " to " << this->getName() << std::endl;
 
@@ -46,7 +46,7 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor)const
     }
 	else if (this->isSigned() == false)
     {
-		throw (Form::FormNotSignedException());
+		throw (AForm::FormNotSignedException());
     }
 	else if (fails++ % 2)
 	{
@@ -60,6 +60,6 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor)const
 
 std::ostream	&operator<<(std::ostream &o, RobotomyRequestForm *a)
 {
-	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
+	o << "AForm " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
     return (o);
 }

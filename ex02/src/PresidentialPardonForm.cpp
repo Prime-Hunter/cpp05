@@ -1,16 +1,16 @@
 #include "../includes/PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(): Form("PresidentialPardonForm", 25, 5), _target("default")
+PresidentialPardonForm::PresidentialPardonForm(): AForm("PresidentialPardonForm", 25, 5), _target("default")
 {
     std::cout << "PresidentialPardonForm default constructor called" << std::endl;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target): Form("PresidentialPardonForm", 25, 5), _target(target)
+PresidentialPardonForm::PresidentialPardonForm(std::string target): AForm("PresidentialPardonForm", 25, 5), _target(target)
 {
     std::cout << "PresidentialPardonForm target constructor called. Target: " << target << std::endl;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &copy): Form("PresidentialPardonForm", 25, 5), _target(copy.getTarget())
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &copy): AForm("PresidentialPardonForm", 25, 5), _target(copy.getTarget())
 {
 	std::cout << "PresidentialPardonForm copy constructor called to copy " << copy.getName() << " to " << this->getName() << std::endl;
 
@@ -44,7 +44,7 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor)const
     }
 	else if (this->isSigned() == false)
     {
-		throw (Form::FormNotSignedException());
+		throw (AForm::FormNotSignedException());
     }
     else
     {
@@ -54,6 +54,6 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor)const
 
 std::ostream	&operator<<(std::ostream &o, PresidentialPardonForm *a)
 {
-	o << "Form " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
+	o << "AForm " << a->getName() << ":\n\tsign-grade:\t" << a->getSignGrade() << "\n\texec-grade:\t" << a->getExecGrade() << "\n\tis signed:\t" << a->isSigned() << std::endl;
     return (o);
 }

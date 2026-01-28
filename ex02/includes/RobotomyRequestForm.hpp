@@ -12,6 +12,6 @@ class AForm;
 class RobotomyRequestForm: public AForm
 {
     
-}
+};
 
 #endif
